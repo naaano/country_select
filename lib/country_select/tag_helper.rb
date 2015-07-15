@@ -11,7 +11,7 @@ module CountrySelect
         priority_countries_options = country_options_for(priority_countries, false)
 
         option_tags = nil
-        if include_blank.present?
+        if include_no_country.present?
           option_tags = options_for_select([["No Country", ""]], option_tags_options)          
           option_tags += html_safe_newline + options_for_select(priority_countries_options, option_tags_options)
         else
@@ -35,8 +35,8 @@ module CountrySelect
       @options[:locale]
     end
 
-    def include_blank
-      @options[:include_blank]
+    def include_no_country
+      @options[:include_no_country]
     end
 
     def priority_countries
