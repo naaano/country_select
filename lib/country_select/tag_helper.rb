@@ -10,7 +10,14 @@ module CountrySelect
       if priority_countries.present?
         priority_countries_options = country_options_for(priority_countries, false)
 
-        option_tags = options_for_select(priority_countries_options, option_tags_options)
+        option_tags = nil
+        if include_blank.present?
+          option_tags = options_for_select([["No Country", ""]], option_tags_options)          
+          option_tags += html_safe_newline + options_for_select(priority_countries_options, option_tags_options)
+        else
+          option_tags = options_for_select(priority_countries_options, option_tags_options)
+        end
+
         option_tags += html_safe_newline + options_for_select([priority_countries_divider], disabled: priority_countries_divider)
 
         if priority_countries_options.map(&:second).include?(option_tags_options[:selected])
@@ -26,6 +33,10 @@ module CountrySelect
     private
     def locale
       @options[:locale]
+    end
+
+    def include_blank
+      @options[:include_blank]
     end
 
     def priority_countries
