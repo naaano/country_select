@@ -12,12 +12,9 @@ module CountrySelect
 
         option_tags = nil
         if include_no_country.present?
-
-          if no_country_value.present?          
-            option_tags = options_for_select([["No Country", no_country_value]], option_tags_options)          
-          else
-            option_tags = options_for_select([["No Country", ""]], option_tags_options)          
-          end
+          no_country_value = @options[:no_country_value] || ""
+          no_country_label = @options[:no_country_label] || "No Country"
+          option_tags = options_for_select([[no_country_label, no_country_value]], option_tags_options)
           option_tags += html_safe_newline + options_for_select(priority_countries_options, option_tags_options)
         else
           option_tags = options_for_select(priority_countries_options, option_tags_options)
@@ -42,10 +39,6 @@ module CountrySelect
 
     def include_no_country
       @options[:include_no_country]
-    end
-
-    def no_country_value    
-      @options[:no_country_value]
     end
 
     def priority_countries
@@ -122,4 +115,3 @@ module CountrySelect
     end
   end
 end
-
